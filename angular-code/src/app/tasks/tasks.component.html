@@ -1,0 +1,35 @@
+<div class="add-action">
+  <button mat-raised-button color="primary" (click)="openNewDialog()">Add Task</button>
+</div>
+<mat-card class="no-task" *ngIf="tasks.length == 0">No Tasks added!!</mat-card>
+<mat-accordion multi="true">
+  <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-expansion-panel-header class="task-title">
+      <span>{{task.title}}</span>
+      <span class="spacer"></span>
+      <span>{{task.reminderTime | date: 'mediumDate'}}</span>
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      {{task.description}}
+    </mat-panel-description>
+    <form *ngIf="editMode" class="edit-form" 
+    [formGroup]="editForm" (ngSubmit)="onEditTask()">
+        <mat-form-field>
+          <textarea matTextareaAutosize matInput placeholder="Description..." 
+          name="description" formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+        [min]="minDate" [max]="maxDate" 
+        name="reminderTime" formControlName="reminderTime">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-button color="warn" type="submit" [disabled]="editForm.invalid">UPDATE</button>
+    </form>
+    <mat-action-row>
+      <a mat-button color="primary" [disabled]="editMode" (click)="onEdit(task)">EDIT</a>
+      <button mat-button color="warn" [disabled]="editMode" (click)="onDeleteTask(task.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

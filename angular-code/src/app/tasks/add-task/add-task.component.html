@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>New Task</h2>
+<form #addForm="ngForm" (ngSubmit)="onAddTask(addForm)">
+  <mat-dialog-content class="mat-typography add-form">
+    <mat-form-field>
+      <input matInput placeholder="Title"
+      name="title" #title="ngModel" ngModel required>
+    </mat-form-field>
+    <mat-error *ngIf="title.invalid && title.touched">*Required</mat-error>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+        [min]="minDate" [max]="maxDate" 
+        name="reminderTime" #reminderTime="ngModel" ngModel required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-error *ngIf="reminderTime.invalid && reminderTime.touched">*Required</mat-error>
+    <mat-form-field>
+      <textarea matTextareaAutosize matInput placeholder="Description..." rows="4" 
+      name="description" #description="ngModel" ngModel required></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="description.invalid && description.touched">*Required</mat-error>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button type="submit" cdkFocusInitial [disabled]="addForm.invalid">Save</button>
+  </mat-dialog-actions>
+</form>
+

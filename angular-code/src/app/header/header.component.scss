@@ -1,0 +1,13 @@
+.main-header {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+}
+
+.spacer {
+    flex: 1 1 30%;
+}
+
+.mat-toolbar a,  .mat-toolbar a >img {
+    height: 100%;
+}
